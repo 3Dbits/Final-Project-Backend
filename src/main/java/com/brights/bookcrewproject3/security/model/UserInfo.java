@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table( name = "user_info")
@@ -47,6 +48,8 @@ public class UserInfo {
     @OneToMany(mappedBy = "userInfo")   //onetomany as one user can have many posts
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "userInfo")
+    private Set<Friendship> friends ;
 
 
 

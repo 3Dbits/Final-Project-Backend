@@ -10,15 +10,16 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Table (name = "comments")
-@SequenceGenerator(name = "comment_seq_gen",sequenceName = "comment_seq" , initialValue = 10, allocationSize = 1)
 
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq_gen")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id ;
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -38,6 +39,16 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name ="user_id", referencedColumnName = "id",nullable = false)
     private UserInfo user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional=true)
+    @JoinColumn(name="parent_id")
+    private Comment parent;
+
+    @OneToMany(mappedBy="parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
+    private Set<Comment> children ;
+
+
+
 
     public Comment() {
 
