@@ -16,7 +16,8 @@ public class Category {
     @NotNull
     private String genre;
 
-    @OneToMany(mappedBy = "category")
-    private Set<Category> categories;
+    @ManyToMany(mappedBy = "categories")
+    private Set<Book> books;
+
 
 }

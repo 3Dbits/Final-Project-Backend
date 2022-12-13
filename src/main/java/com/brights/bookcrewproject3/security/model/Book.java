@@ -21,17 +21,9 @@ public class Book {
     @Size(min = 2, max = 250, message = "Title should be between 2 and 250 letters")
     private String title;
 
-
-    @NotNull
-    private String[] author;
-
     @NotNull
     @Size(min = 2, max = 550, message = "Name of author should be between 2 and 550 characters")
     private String publisher;
-
-    @NotNull
-    @Size(min = 2, max = 250, message = "Name of category should be between 2 and 250 characters")
-    private  String categories;
 
     private String language;
     private boolean isAvailable; //PDF is available for eBook
@@ -49,6 +41,20 @@ public class Book {
 
     @OneToMany(mappedBy = "book")
     private Set<Post> posts;
+
+    @ManyToMany
+    @JoinTable(
+            name = "books_category",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    Set<Category> categories;
+
+    @ManyToMany
+    @JoinTable(
+            name = "books_authors",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    Set<Author> authors;
 
 }
 

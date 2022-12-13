@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Data
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 public class Author {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Long author_id ;
+     private Long id ;
 
      @NotBlank
      @Column(name="first_name")
@@ -22,8 +23,7 @@ public class Author {
      @Column(name="last_name")
      private String last_name ;
 
-     @ManyToOne
-     @JoinColumn(name = "book_id", referencedColumnName="id")
-     private Book book;
+     @ManyToMany(mappedBy = "authors")
+     private Set<Book> books;
 
 }
