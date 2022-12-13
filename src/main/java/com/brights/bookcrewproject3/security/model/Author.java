@@ -4,7 +4,7 @@ import lombok.Data;
 
 import javax.annotation.processing.Generated;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -15,11 +15,11 @@ public class Author {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id ;
 
-     @NotBlank
+     @NotNull
      @Column(name="first_name")
      private String first_name ;
 
-     @NotBlank
+     @NotNull
      @Column(name="last_name")
      private String last_name ;
 
