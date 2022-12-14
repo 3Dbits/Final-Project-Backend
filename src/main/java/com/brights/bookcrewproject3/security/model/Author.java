@@ -3,7 +3,7 @@ package com.brights.bookcrewproject3.security.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -14,11 +14,11 @@ public class Author {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id ;
 
-     @NotBlank
+     @NotNull
      @Column(name="first_name")
      private String firstName;
 
-     @NotBlank
+     @NotNull
      @Column(name="last_name")
      private String lastName;
 

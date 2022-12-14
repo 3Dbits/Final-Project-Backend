@@ -3,8 +3,6 @@ package com.brights.bookcrewproject3.security.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
