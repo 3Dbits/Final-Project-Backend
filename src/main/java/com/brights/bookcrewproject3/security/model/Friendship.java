@@ -9,20 +9,9 @@ import java.util.Set;
 @Table ( name = "friends")
 public class Friendship {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-/*
-    @NotBlank
-    @Column(name = "user_id")
-    private Long user_id;
-
-    @NotBlank
-    @Column(name = "friend_id")
-    private Long friend_id;
-
- */
-
     @ManyToOne
     @JoinColumn(name ="userInfo_id", referencedColumnName = "id",nullable = false)
     private UserInfo userInfo;

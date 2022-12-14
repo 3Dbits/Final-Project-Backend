@@ -1,17 +1,11 @@
 package com.brights.bookcrewproject3.security.model;
 
-import com.brights.bookcrewproject3.BookcrewProject3Application;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.ui.Model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.awt.print.Book;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -26,11 +20,11 @@ public class UserInfo {
 
     @NotBlank
     @Column(name = "first_name")
-    public String first_name ;
+    public String firstName;
 
     @NotBlank
     @Column(name="last_name")
-    public String last_name ;
+    public String lastName;
 
     @NotBlank
     @Temporal(TemporalType.TIMESTAMP)

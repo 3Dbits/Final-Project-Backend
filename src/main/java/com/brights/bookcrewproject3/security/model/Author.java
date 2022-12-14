@@ -2,7 +2,6 @@ package com.brights.bookcrewproject3.security.model;
 
 import lombok.Data;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
@@ -17,11 +16,11 @@ public class Author {
 
      @NotBlank
      @Column(name="first_name")
-     private String first_name ;
+     private String firstName;
 
      @NotBlank
      @Column(name="last_name")
-     private String last_name ;
+     private String lastName;
 
      @ManyToMany(mappedBy = "authors")
      private Set<Book> books;
