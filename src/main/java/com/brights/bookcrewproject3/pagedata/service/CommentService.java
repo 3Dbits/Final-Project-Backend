@@ -1,6 +1,6 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import com.brights.bookcrewproject3.security.model.Comment;
+import com.brights.bookcrewproject3.pagedata.model.Comment;
 
 public interface CommentService {
     Comment save (Comment comment);

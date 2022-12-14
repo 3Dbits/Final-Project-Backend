@@ -1,4 +1,4 @@
-package com.brights.bookcrewproject3.security.model;
+package com.brights.bookcrewproject3.pagedata.model;
 
 import lombok.Data;
 

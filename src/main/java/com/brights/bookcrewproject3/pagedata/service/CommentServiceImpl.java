@@ -1,7 +1,7 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import com.brights.bookcrewproject3.security.model.Comment;
-import com.brights.bookcrewproject3.security.repository.CommentRepository;
+import com.brights.bookcrewproject3.pagedata.model.Comment;
+import com.brights.bookcrewproject3.pagedata.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

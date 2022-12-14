@@ -1,7 +1,7 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import com.brights.bookcrewproject3.security.model.UserInfo;
-import com.brights.bookcrewproject3.security.repository.UserInfoRepository;
+import com.brights.bookcrewproject3.pagedata.model.UserInfo;
+import com.brights.bookcrewproject3.pagedata.repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +11,18 @@ import java.util.Optional;
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
+    @Autowired
     private final UserInfoRepository userInfoRepository;
 
     @Autowired
     public UserInfoServiceImpl(UserInfoRepository userInfoRepository) {
         this.userInfoRepository = userInfoRepository;
     }
+
     @Override
     public UserInfo saveUser(UserInfo userInfo) {
         return userInfoRepository.save(userInfo);
     }
-
-
 
     @Override
     public List<UserInfo> getAllUserInfo() {
@@ -46,8 +46,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfoData = getUserInfoById(id);
 
         if (userInfoData!= null ) {
-            userInfoData.setFirstName(userInfo.getFirstName());
-            userInfoData.setLastName(userInfo.getLastName());
+//            userInfoData.setFirstName(userInfo.getFirstName());
+//            userInfoData.setLastName(userInfo.getLastName());
             userInfoData.setDateOfBirth(userInfo.getDateOfBirth());
             userInfoData.setSignup_date(userInfo.getSignup_date());
             return userInfoData;

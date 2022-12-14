@@ -1,6 +1,6 @@
-package com.brights.bookcrewproject3.security.repository;
+package com.brights.bookcrewproject3.pagedata.repository;
 
-import com.brights.bookcrewproject3.security.model.UserInfo;
+import com.brights.bookcrewproject3.pagedata.model.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

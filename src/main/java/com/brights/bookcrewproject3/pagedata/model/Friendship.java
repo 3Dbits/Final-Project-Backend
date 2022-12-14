@@ -1,9 +1,6 @@
-package com.brights.bookcrewproject3.security.model;
+package com.brights.bookcrewproject3.pagedata.model;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.Set;
 
 @Entity
 @Table ( name = "friends")

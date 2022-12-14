@@ -1,7 +1,7 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import com.brights.bookcrewproject3.security.model.Category;
-import com.brights.bookcrewproject3.security.repository.CategoryRepository;
+import com.brights.bookcrewproject3.pagedata.model.Category;
+import com.brights.bookcrewproject3.pagedata.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Category> getAllCategories() {
-        return CategoryRepository.findAll();
+        return categoryRepository.findAll();
     }
 }

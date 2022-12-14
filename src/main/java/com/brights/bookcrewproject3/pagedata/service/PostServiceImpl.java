@@ -1,7 +1,7 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import com.brights.bookcrewproject3.security.model.Post;
-import com.brights.bookcrewproject3.security.repository.PostRepository;
+import com.brights.bookcrewproject3.pagedata.model.Post;
+import com.brights.bookcrewproject3.pagedata.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;

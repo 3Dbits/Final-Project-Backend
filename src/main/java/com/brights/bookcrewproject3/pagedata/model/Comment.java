@@ -1,14 +1,11 @@
-package com.brights.bookcrewproject3.security.model;
+package com.brights.bookcrewproject3.pagedata.model;
 
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 

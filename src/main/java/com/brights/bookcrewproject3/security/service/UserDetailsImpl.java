@@ -1,6 +1,6 @@
 package com.brights.bookcrewproject3.security.service;
 
-import com.brights.bookcrewproject3.security.model.User;
+import com.brights.bookcrewproject3.security.model.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

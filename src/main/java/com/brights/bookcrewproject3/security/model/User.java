@@ -1,5 +1,6 @@
 package com.brights.bookcrewproject3.security.model;
 
+import com.brights.bookcrewproject3.pagedata.model.UserInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.HashSet;
@@ -11,11 +12,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(	name = "users"
-//        uniqueConstraints = {
-//                @UniqueConstraint(columnNames = "username"),
-//                @UniqueConstraint(columnNames = "email")
-//        } TODO MC ask George about how to make uniq username/email
+@Table(	name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email") }
         )
 @NoArgsConstructor
 @Data

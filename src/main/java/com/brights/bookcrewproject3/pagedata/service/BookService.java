@@ -1,6 +1,8 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import java.awt.print.Book;
+
+import com.brights.bookcrewproject3.pagedata.model.Book;
+
 import java.util.List;
 
 public interface BookService {

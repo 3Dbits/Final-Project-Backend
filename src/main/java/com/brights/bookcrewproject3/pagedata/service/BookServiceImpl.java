@@ -1,7 +1,7 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import com.brights.bookcrewproject3.security.model.Book;
-import com.brights.bookcrewproject3.security.repository.BookRepository;
+import com.brights.bookcrewproject3.pagedata.model.Book;
+import com.brights.bookcrewproject3.pagedata.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class BookServiceImpl implements BookService{
     private BookRepository bookRepository;
 
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBook() {
         return bookRepository.findAll();
     }
 
@@ -25,7 +25,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book getBooksById(long id) {
+    public Book getBookById(long id) {
         Optional<Book> optional = this.bookRepository.findById(id);
         Book book = null;
 

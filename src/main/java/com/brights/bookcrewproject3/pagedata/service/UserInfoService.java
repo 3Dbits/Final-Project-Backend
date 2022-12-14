@@ -1,9 +1,8 @@
-package com.brights.bookcrewproject3.security.service;
+package com.brights.bookcrewproject3.pagedata.service;
 
-import com.brights.bookcrewproject3.security.model.UserInfo;
+import com.brights.bookcrewproject3.pagedata.model.UserInfo;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserInfoService {
 

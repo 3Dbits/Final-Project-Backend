@@ -1,9 +1,9 @@
-package com.brights.bookcrewproject3.security.model;
+package com.brights.bookcrewproject3.pagedata.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import lombok.*;
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.Set;
 
