@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "books")
 @Data
+@NoArgsConstructor
 public class Book {
 
     @Id
@@ -18,11 +19,9 @@ public class Book {
     private long id;
 
     @NotNull
-    @Size(min = 2, max = 250, message = "Title should be between 2 and 250 letters")
     private String title;
 
     @NotNull
-    @Size(min = 2, max = 550, message = "Name of author should be between 2 and 550 characters")
     private String publisher;
 
     private String language;
@@ -32,15 +31,14 @@ public class Book {
     private  String smallThumbnail;
     private  String thumbnail;
 
-    private Date publishedDate;
-    private String pageNumber;
+    private String publishedDate;
+    private int pageNumber;
 
-    @NotNull
-    @Size(min = 2, message = "Content should at least have 2 characters") //book content
-    private  String content;
+    @Lob
+    private String content;
 
-    @OneToMany(mappedBy = "book")
-    private Set<Post> posts;
+//    @OneToMany(mappedBy = "book")
+//    private Set<Post> posts;
 
     @ManyToMany
     @JoinTable(
@@ -56,6 +54,31 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     Set<Author> authors;
 
+    public Book(String title,
+                String publisher,
+                String language,
+                boolean isAvailable,
+                String pdf,
+                String smallThumbnail,
+                String thumbnail,
+                String publishedDate,
+                int pageNumber,
+                String content,
+                Set<Category> categories,
+                Set<Author> authors) {
+        this.title = title;
+        this.publisher = publisher;
+        this.language = language;
+        this.isAvailable = isAvailable;
+        this.pdf = pdf;
+        this.smallThumbnail = smallThumbnail;
+        this.thumbnail = thumbnail;
+        this.publishedDate = publishedDate;
+        this.pageNumber = pageNumber;
+        this.content = content;
+        this.categories = categories;
+        this.authors = authors;
+    }
 }
 
 

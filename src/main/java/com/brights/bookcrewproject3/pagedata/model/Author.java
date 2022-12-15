@@ -1,6 +1,7 @@
 package com.brights.bookcrewproject3.pagedata.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,20 +10,19 @@ import java.util.Set;
 @Entity
 @Data
 @Table (name = "authors")
+@NoArgsConstructor
 public class Author {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id ;
 
      @NotNull
-     @Column(name="first_name")
-     private String firstName;
+     private String name;
 
-     @NotNull
-     @Column(name="last_name")
-     private String lastName;
+//     @ManyToMany(mappedBy = "authors")
+//     private Set<Book> books;
 
-     @ManyToMany(mappedBy = "authors")
-     private Set<Book> books;
-
+     public Author(String name) {
+          this.name = name;
+     }
 }

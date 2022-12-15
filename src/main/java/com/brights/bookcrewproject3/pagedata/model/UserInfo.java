@@ -39,11 +39,11 @@ public class UserInfo {
     @Column(name="favorite_bookID")
     private Long bookId ;
 
-    @OneToMany(mappedBy = "userInfo")   //onetomany as one user can have many posts
-    private List<Post> posts;
+//    @OneToMany(mappedBy = "userInfo")   //onetomany as one user can have many posts
+//    private List<Post> posts;
 
-    @OneToMany(mappedBy = "userInfo")
-    private Set<Friendship> friends ;
+//    @OneToMany(mappedBy = "userInfo")
+//    private Set<Friendship> friendship;
 
     public UserInfo(String firstName, String lastName, Date signupSate, LocalDate dateOfBirth, Long bookId) {
         this.firstName = firstName;

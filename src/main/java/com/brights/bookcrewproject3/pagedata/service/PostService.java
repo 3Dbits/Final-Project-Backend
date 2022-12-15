@@ -1,15 +1,19 @@
 package com.brights.bookcrewproject3.pagedata.service;
 
+import com.brights.bookcrewproject3.pagedata.model.Book;
 import com.brights.bookcrewproject3.pagedata.model.Post;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface PostService {
     List<Post> getAllPosts();
 
-    void savePost(Post post);
+    Post savePost(Post post, String bookIsbn, String username) throws IOException;
 
     Post getPostById(long id);
 
     void deletePostById(long id);
+
+    List<Post> getAllPostsByUsername(String username);
 }

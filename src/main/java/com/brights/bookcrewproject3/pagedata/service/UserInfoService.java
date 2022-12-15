@@ -15,4 +15,8 @@ public interface UserInfoService {
     void deleteUserInfoById(long id);
 
     void deleteAllUserInfo();
+
+    List<UserInfo> getAllFriends(String username);
+
+    void saveFriend(String username, long id);
 }
