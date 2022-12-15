@@ -1,6 +1,7 @@
 package com.brights.bookcrewproject3.pagedata.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table( name = "user_info")
 @Data
+@NoArgsConstructor
 public class UserInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,18 +22,16 @@ public class UserInfo {
 
     @NotBlank
     @Column(name = "first_name")
-    public String first_name ;
+    public String firstName ;
 
     @NotBlank
     @Column(name="last_name")
-    public String last_name ;
+    public String lastName ;
 
-    @NotBlank
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="signup_date")
-    public Date signup_date ; // MS if we dont need this - move ( bonus )
+    public Date signupSate ; // MS if we dont need this - move ( bonus )
 
-    @NotBlank
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
@@ -45,8 +45,11 @@ public class UserInfo {
     @OneToMany(mappedBy = "userInfo")
     private Set<Friendship> friends ;
 
-
-
-
-
+    public UserInfo(String firstName, String lastName, Date signupSate, LocalDate dateOfBirth, Long bookId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.signupSate = signupSate;
+        this.dateOfBirth = dateOfBirth;
+        this.bookId = bookId;
+    }
 }

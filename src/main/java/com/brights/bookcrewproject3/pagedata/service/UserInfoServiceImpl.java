@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
-    @Autowired
+
     private final UserInfoRepository userInfoRepository;
 
     @Autowired
@@ -46,10 +46,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfoData = getUserInfoById(id);
 
         if (userInfoData!= null ) {
-//            userInfoData.setFirstName(userInfo.getFirstName());
-//            userInfoData.setLastName(userInfo.getLastName());
+            userInfoData.setFirstName(userInfo.getFirstName());
+            userInfoData.setLastName(userInfo.getLastName());
             userInfoData.setDateOfBirth(userInfo.getDateOfBirth());
-            userInfoData.setSignup_date(userInfo.getSignup_date());
+            userInfoData.setSignupSate(userInfo.getSignupSate());
             return userInfoData;
         }
         return null;
