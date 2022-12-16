@@ -1,6 +1,7 @@
 package com.brights.bookcrewproject3.security.controllers;
 
 
+import com.brights.bookcrewproject3.pagedata.model.UserInfo;
 import com.brights.bookcrewproject3.security.jwt.JwtUtils;
 import com.brights.bookcrewproject3.security.model.Role;
 import com.brights.bookcrewproject3.security.model.User;
@@ -22,6 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -104,6 +106,7 @@ public class AuthController {
         }
 
         user.setRoles(roles);
+        user.setUserInfo(new UserInfo(signUpRequest.getFirstName(), signUpRequest.getLastName(), new Date(),signUpRequest.getDateOfBirth(), signUpRequest.getBookId()));
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

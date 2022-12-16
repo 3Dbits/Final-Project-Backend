@@ -1,5 +1,6 @@
 package com.brights.bookcrewproject3.security.model;
 
+import com.brights.bookcrewproject3.pagedata.model.UserInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.HashSet;
@@ -11,11 +12,10 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(	name = "users"
-//        uniqueConstraints = {
-//                @UniqueConstraint(columnNames = "username"),
-//                @UniqueConstraint(columnNames = "email")
-//        } TODO MC ask George about how to make uniq username/email
+@Table(	name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email") }
         )
 @NoArgsConstructor
 @Data
@@ -42,6 +42,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @MapsId
+    @JoinColumn(name = "userInfo_id",referencedColumnName = "id")
+    private UserInfo userInfo;
 
     public User(String username, String email, String password) {
         this.username = username;
