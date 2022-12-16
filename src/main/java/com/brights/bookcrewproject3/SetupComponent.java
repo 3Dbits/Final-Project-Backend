@@ -37,18 +37,20 @@ public class SetupComponent {
     @EventListener
     @Transactional
     public void handleApplicationReady(ApplicationReadyEvent applicationReadyEvent) {
-        Role adminRole = new Role(UserRoles.ROLE_ADMIN);
-        Role userRole = new Role(UserRoles.ROLE_USER);
-        adminRole = roleRepository.save(adminRole);
-        userRole = roleRepository.save(userRole);
+        if (roleRepository.findByName(UserRoles.ROLE_ADMIN).isEmpty()) {
+            Role adminRole = new Role(UserRoles.ROLE_ADMIN);
+            Role userRole = new Role(UserRoles.ROLE_USER);
+            adminRole = roleRepository.save(adminRole);
+            userRole = roleRepository.save(userRole);
 
-        User user = new User("Test123",
-                "mc@gmail.com",
-                encoder.encode("Test123"));
+            User user = new User("Test123",
+                    "mc@gmail.com",
+                    encoder.encode("Test123"));
 
-        user.setRoles(Set.of(adminRole, userRole));
-        UserInfo userInfo = new UserInfo("Matija", "Cvetan", new Date(), LocalDate.now(), 123465798L);
-        user.setUserInfo(userInfoRepository.save(userInfo));
-        userRepository.save(user);
+            user.setRoles(Set.of(adminRole, userRole));
+            UserInfo userInfo = new UserInfo("Matija", "Cvetan", new Date(), LocalDate.now(), 123465798L);
+            user.setUserInfo(userInfoRepository.save(userInfo));
+            userRepository.save(user);
+        }
     }
 }

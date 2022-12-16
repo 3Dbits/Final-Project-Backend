@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class Pdf {
     public boolean isAvailable;
     public String acsTokenLink;
+    public String downloadLink;
 }

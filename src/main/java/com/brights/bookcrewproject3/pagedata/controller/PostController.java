@@ -21,7 +21,7 @@ public class PostController {
 
     //get All Books from Google API
     @GetMapping("/all")
-    public ResponseEntity<List<Post>> getAllBooks(Authentication authentication) {
+    public ResponseEntity<List<Post>> getAllPost(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         List<Post> list = postService.getAllPostsByUsername(userDetails.getUsername());
@@ -46,6 +46,19 @@ public class PostController {
             return new ResponseEntity<>(_post, HttpStatus.CREATED);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    //Info for one post
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getOnePost(Authentication authentication,
+                                                 @PathVariable(value = "id") long id) {
+        try {
+            Post post = postService.getPostById(id);
+
+            return new ResponseEntity<>(post, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

@@ -65,10 +65,13 @@ public class WebSecurityConfig {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .antMatchers("/api/book/**").permitAll()
-                .antMatchers("/api/post/**").permitAll()
+                .antMatchers("/api/**").permitAll()
+//                .antMatchers("/api/test/**").permitAll()
+//                .antMatchers("/api/book/**").permitAll()
+//                .antMatchers("/api/post/**").permitAll()
+//                .antMatchers("/api/comment/**").permitAll()
+//                .antMatchers("/api/friends/**").permitAll()
+//                .antMatchers("/api/userinfo/**").permitAll()
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

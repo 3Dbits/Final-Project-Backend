@@ -1,6 +1,8 @@
 package com.brights.bookcrewproject3.pagedata.model;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.*;
@@ -11,7 +13,8 @@ import java.util.Set;
 
 @Entity
 @Table (name = "comments")
-
+@Data
+@NoArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,52 +44,5 @@ public class Comment {
 
     @OneToMany(mappedBy="parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
     private Set<Comment> children ;
-
-
-
-
-    public Comment() {
-
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
-    }
-
-    public UserInfo getUser() {
-        return user;
-    }
-
-    public void setUser(UserInfo user) {
-        this.user = user;
-    }
 
 }

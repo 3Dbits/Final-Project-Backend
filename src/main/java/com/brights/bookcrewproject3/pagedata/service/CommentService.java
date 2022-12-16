@@ -9,4 +9,8 @@ public interface CommentService {
     Comment getCommentById (Long id);
 
     void deleteCommentById (Long id);
+
+    Comment createCommentOnPost(long idPost, Comment comment, String username);
+
+    Comment createCommentOnComment(long idPost, long idComment, Comment comment, String username);
 }

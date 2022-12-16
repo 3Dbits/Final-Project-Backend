@@ -20,7 +20,7 @@ public class FriendshipController {
     @Autowired
     private UserInfoService userInfoService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<UserInfo>> getAllFriend(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -32,6 +32,7 @@ public class FriendshipController {
         return new ResponseEntity<>(userInfos, HttpStatus.OK);
     }
 
+    //userinfo id iz nase tablice
     @PostMapping("/add/{id}")
     public ResponseEntity<HttpStatus> addNewFriend(Authentication authentication,
                                                    @PathVariable(value = "id") long id) {
