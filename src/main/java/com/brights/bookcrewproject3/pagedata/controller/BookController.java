@@ -1,5 +1,6 @@
 package com.brights.bookcrewproject3.pagedata.controller;
 
+import com.brights.bookcrewproject3.pagedata.model.Book;
 import com.brights.bookcrewproject3.pagedata.model.googlebook.Root;
 import com.brights.bookcrewproject3.pagedata.service.GoogleBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ public class BookController {
     private GoogleBookService googleBookService;
 
     @GetMapping("/search")
-    public ResponseEntity<Root> searchBook(@RequestParam(value = "bookName", required = false, defaultValue = "") String bookName,
+    public ResponseEntity<Book> searchBook(@RequestParam(value = "bookName", required = false, defaultValue = "") String bookName,
                                            @RequestParam(value = "bookAuthor", required = false, defaultValue = "") String bookAuthor,
                                            @RequestParam(value = "bookIsbn", required = false, defaultValue = "") String bookIsbn) {
-        Root resolute = null;
+        Book resolute = null;
 
         try {
             if (!bookName.isEmpty()) {
@@ -30,7 +31,7 @@ public class BookController {
             } else if (!bookAuthor.isEmpty()) {
                 resolute = googleBookService.findBooksByAuthor(bookAuthor);
             } else if (!bookIsbn.isEmpty()) {
-                resolute = googleBookService.findBooksByIsbn(bookIsbn);
+                resolute = googleBookService.findBooksByIsbn2(bookIsbn);
             }
 
             return resolute == null ? new ResponseEntity<>( null, HttpStatus.BAD_REQUEST) : new ResponseEntity<>(resolute, HttpStatus.OK);
