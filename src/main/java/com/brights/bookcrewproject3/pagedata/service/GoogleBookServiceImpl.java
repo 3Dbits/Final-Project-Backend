@@ -76,7 +76,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
     public List<Book> getBookFromRoot(Root root) {
         List<Book> books = new ArrayList<>();
 
-        for (int position = 0; position < root.getItems().size() -1; position++) {
+        for (int position = 0; position < root.getItems().size(); position++) {
             Set<Author> author = new HashSet<>();
             if (root.getItems().get(position).getVolumeInfo().authors != null) {
                 for (var e : root.getItems().get(position).getVolumeInfo().authors) {
