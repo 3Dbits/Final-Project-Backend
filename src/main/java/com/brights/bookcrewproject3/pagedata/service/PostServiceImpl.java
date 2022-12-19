@@ -2,10 +2,7 @@ package com.brights.bookcrewproject3.pagedata.service;
 
 import com.brights.bookcrewproject3.pagedata.model.*;
 import com.brights.bookcrewproject3.pagedata.model.googlebook.Root;
-import com.brights.bookcrewproject3.pagedata.repository.AuthorRepository;
-import com.brights.bookcrewproject3.pagedata.repository.CategoryRepository;
-import com.brights.bookcrewproject3.pagedata.repository.PostRepository;
-import com.brights.bookcrewproject3.pagedata.repository.UserInfoRepository;
+import com.brights.bookcrewproject3.pagedata.repository.*;
 import com.brights.bookcrewproject3.security.model.User;
 import com.brights.bookcrewproject3.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +23,11 @@ public class PostServiceImpl implements PostService{
     private BookService bookService;
     private AuthorRepository authorRepository;
     private CategoryRepository categoryRepository;
+    private FriendshipRepository friendshipRepository;
+    private UserInfoService userInfoService;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, UserRepository userRepository, UserInfoRepository userInfoRepository, GoogleBookService googleBookService, CategoryService categoryService, AuthorService authorService, BookService bookService, AuthorRepository authorRepository, CategoryRepository categoryRepository) {
+    public PostServiceImpl(PostRepository postRepository, UserInfoService userInfoService, FriendshipRepository friendshipRepository, UserRepository userRepository, UserInfoRepository userInfoRepository, GoogleBookService googleBookService, CategoryService categoryService, AuthorService authorService, BookService bookService, AuthorRepository authorRepository, CategoryRepository categoryRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.userInfoRepository = userInfoRepository;
@@ -38,6 +37,8 @@ public class PostServiceImpl implements PostService{
         this.bookService = bookService;
         this.authorRepository = authorRepository;
         this.categoryRepository = categoryRepository;
+        this.friendshipRepository = friendshipRepository;
+        this.userInfoService = userInfoService;
     }
 
     @Override
@@ -83,7 +84,8 @@ public class PostServiceImpl implements PostService{
                         root.getItems().get(0).getVolumeInfo().pageCount,
                         root.getItems().get(0).getVolumeInfo().description,
                         categories,
-                        author)
+                        author,
+                        root.getItems().get(0).getVolumeInfo().getIndustryIdentifiers().get(0).identifier)
         );
 
         post.setBook(book);
@@ -120,6 +122,13 @@ public class PostServiceImpl implements PostService{
     public List<Post> getAllPostsByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow();
 
-        return postRepository.findAllByUserInfo(user.getUserInfo());
+        List<Post> newList = new ArrayList<>(postRepository.findAllByUserInfo(user.getUserInfo()));
+
+        List<UserInfo> userInfos = userInfoService.getAllFriends(username);
+        for (var e : userInfos) {
+            newList.addAll(postRepository.findAllByUserInfo(e));
+        }
+
+        return newList;
     }
 }

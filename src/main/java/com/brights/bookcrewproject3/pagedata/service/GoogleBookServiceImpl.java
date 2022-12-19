@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -34,8 +36,8 @@ public class GoogleBookServiceImpl implements GoogleBookService {
     private String url = "https://www.googleapis.com/books/v1/volumes?q=";
 
     @Override
-    public Book findBooksByTitle(String title) throws IOException {
-        String url2 = url + "intitle:" + title + "&key=" + googleAPI;
+    public List<Book> findBooksByTitle(String title) throws IOException {
+        String url2 = url + "intitle:" + title.replace(" ", "+") + "&key=" + googleAPI;
 
         ObjectMapper om = new ObjectMapper();
 
@@ -44,7 +46,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
     }
 
     @Override
-    public Book findBooksByAuthor(String author) throws IOException {
+    public List<Book> findBooksByAuthor(String author) throws IOException {
         String url2 = url + "inauthor:" + author + "&key=" + googleAPI;
 
         ObjectMapper om = new ObjectMapper();
@@ -54,7 +56,7 @@ public class GoogleBookServiceImpl implements GoogleBookService {
     }
 
     @Override
-    public Book findBooksByIsbn2(String isbn) throws IOException {
+    public List<Book> findBooksByIsbn2(String isbn) throws IOException {
         String url2 = url + "isbn:" + isbn + "&key=" + googleAPI;
 
         ObjectMapper om = new ObjectMapper();
@@ -71,39 +73,54 @@ public class GoogleBookServiceImpl implements GoogleBookService {
         return om.readValue(new URL(url2), Root.class);
     }
 
-    public Book getBookFromRoot(Root root) {
-        Set<Author> author = new HashSet<>();
-        for (var e : root.getItems().get(0).getVolumeInfo().authors) {
-            if (authorRepository.existsAuthorByName(e)) {
-                author.add(authorRepository.findAuthorByName(e).orElseThrow());
+    public List<Book> getBookFromRoot(Root root) {
+        List<Book> books = new ArrayList<>();
+
+        for (int position = 0; position < root.getItems().size() -1; position++) {
+            Set<Author> author = new HashSet<>();
+            if (root.getItems().get(position).getVolumeInfo().authors != null) {
+                for (var e : root.getItems().get(position).getVolumeInfo().authors) {
+                    if (authorRepository.existsAuthorByName(e)) {
+                        author.add(authorRepository.findAuthorByName(e).orElseThrow());
+                    } else {
+                        author.add(authorService.saveAuthor(new Author(e)));
+                    }
+                }
             } else {
-                author.add(authorService.saveAuthor(new Author(e)));
+                author.add(authorService.saveAuthor(new Author("none")));
             }
-        }
 
-        Set<Category> categories = new HashSet<>();
-        for (var e : root.getItems().get(0).getVolumeInfo().categories) {
-            if (categoryRepository.existsCategoryByGenre(e)) {
-                categories.add(categoryRepository.findCategoryByGenre(e).orElseThrow());
+            Set<Category> categories = new HashSet<>();
+            if (root.getItems().get(position).getVolumeInfo().categories != null) {
+                for (var e : root.getItems().get(position).getVolumeInfo().categories) {
+
+                    if (categoryRepository.existsCategoryByGenre(e)) {
+                        categories.add(categoryRepository.findCategoryByGenre(e).orElseThrow());
+                    } else {
+                        categories.add(categoryService.saveCategory(new Category(e)));
+                    }
+                }
             } else {
-                categories.add(categoryService.saveCategory(new Category(e)));
+                categories.add(categoryService.saveCategory(new Category("none")));
             }
+
+            Book book = new Book(
+                    root.getItems().get(position).getVolumeInfo().title,
+                    root.getItems().get(position).getVolumeInfo().publisher,
+                    root.getItems().get(position).getVolumeInfo().language,
+                    root.getItems().get(position).getAccessInfo().getPdf().isAvailable,
+                    root.getItems().get(position).getAccessInfo().getPdf().acsTokenLink,
+                    root.getItems().get(position).getVolumeInfo().getImageLinks() == null ? "none" : root.getItems().get(position).getVolumeInfo().getImageLinks().smallThumbnail,
+                    root.getItems().get(position).getVolumeInfo().getImageLinks() == null ? "none" : root.getItems().get(position).getVolumeInfo().getImageLinks().thumbnail,
+                    root.getItems().get(position).getVolumeInfo().publishedDate,
+                    root.getItems().get(position).getVolumeInfo().pageCount,
+                    root.getItems().get(position).getVolumeInfo().description,
+                    categories,
+                    author,
+                    root.getItems().get(position).getVolumeInfo().getIndustryIdentifiers().get(0).identifier);
+
+            books.add(book);
         }
-
-        Book book = new Book(
-                        root.getItems().get(0).getVolumeInfo().title,
-                        root.getItems().get(0).getVolumeInfo().publisher,
-                        root.getItems().get(0).getVolumeInfo().language,
-                        root.getItems().get(0).getAccessInfo().getPdf().isAvailable,
-                        root.getItems().get(0).getAccessInfo().getPdf().acsTokenLink,
-                        root.getItems().get(0).getVolumeInfo().getImageLinks().smallThumbnail,
-                        root.getItems().get(0).getVolumeInfo().getImageLinks().thumbnail,
-                        root.getItems().get(0).getVolumeInfo().publishedDate,
-                        root.getItems().get(0).getVolumeInfo().pageCount,
-                        root.getItems().get(0).getVolumeInfo().description,
-                        categories,
-                        author);
-
-        return book;
+        return books;
     }
 }
