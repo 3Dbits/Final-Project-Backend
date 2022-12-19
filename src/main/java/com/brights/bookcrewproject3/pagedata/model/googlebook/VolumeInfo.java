@@ -31,4 +31,5 @@ public class VolumeInfo {
     public String subtitle;
     public double averageRating;
     public int ratingsCount;
+    public SeriesInfo seriesInfo;
 }

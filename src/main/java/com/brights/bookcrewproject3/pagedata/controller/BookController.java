@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600) //MC all urls can access this controller
@@ -20,10 +21,10 @@ public class BookController {
     private GoogleBookService googleBookService;
 
     @GetMapping("/search")
-    public ResponseEntity<Book> searchBook(@RequestParam(value = "bookName", required = false, defaultValue = "") String bookName,
-                                           @RequestParam(value = "bookAuthor", required = false, defaultValue = "") String bookAuthor,
-                                           @RequestParam(value = "bookIsbn", required = false, defaultValue = "") String bookIsbn) {
-        Book resolute = null;
+    public ResponseEntity<List<Book>> searchBook(@RequestParam(value = "bookName", required = false, defaultValue = "") String bookName,
+                                                 @RequestParam(value = "bookAuthor", required = false, defaultValue = "") String bookAuthor,
+                                                 @RequestParam(value = "bookIsbn", required = false, defaultValue = "") String bookIsbn) {
+        List<Book> resolute = null;
 
         try {
             if (!bookName.isEmpty()) {

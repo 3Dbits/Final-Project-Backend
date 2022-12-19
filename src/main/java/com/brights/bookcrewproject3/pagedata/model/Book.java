@@ -37,6 +37,8 @@ public class Book {
     @Lob
     private String content;
 
+    private String isbn;
+
 //    @OneToMany(mappedBy = "book")
 //    private Set<Post> posts;
 
@@ -65,7 +67,8 @@ public class Book {
                 int pageNumber,
                 String content,
                 Set<Category> categories,
-                Set<Author> authors) {
+                Set<Author> authors,
+                String isbn) {
         this.title = title;
         this.publisher = publisher;
         this.language = language;
@@ -78,6 +81,7 @@ public class Book {
         this.content = content;
         this.categories = categories;
         this.authors = authors;
+        this.isbn = isbn;
     }
 }
 
