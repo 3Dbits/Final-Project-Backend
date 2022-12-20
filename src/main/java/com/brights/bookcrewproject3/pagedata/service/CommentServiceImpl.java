@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -71,10 +72,13 @@ public class CommentServiceImpl implements CommentService {
         Comment _comment = commentRepository.save(comment1);
 
         Post post = postService.getPostById(idPost);
-        Set<Comment> comments = post.getComments();
+        List<Comment> comments = post.getComments();
         comments.add(_comment);
         post.setComments(comments);
+        post.setContent("TesttttSpremanja");
         postRepository.save(post);
+
+//        Post posttest = postService.getPostById(idPost);
 
         return _comment;
     }

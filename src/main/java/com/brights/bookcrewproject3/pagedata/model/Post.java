@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,7 +37,7 @@ public class Post {
     @JoinColumn(name = "user_id")
     private UserInfo userInfo;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL) //veza za Comment
-    private Set<Comment> comments;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
 }
