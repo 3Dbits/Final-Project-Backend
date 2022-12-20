@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class PanelizationSummary {
     public boolean containsEpubBubbles;
     public boolean containsImageBubbles;
+    public String epubBubbleVersion;
+    public String imageBubbleVersion;
 }

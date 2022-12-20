@@ -20,7 +20,7 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id ;
-    @Column(columnDefinition = "TEXT", nullable = false)
+
     @NotEmpty(message = "Comment content can not be empty!")
     private String content;
 
@@ -30,19 +30,19 @@ public class Comment {
 
     //@NotNull
     @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
     private Post post;
 
     //@NotNull
     @ManyToOne
-    @JoinColumn(name ="user_id", referencedColumnName = "id",nullable = false)
+    @JoinColumn(name ="user_id", referencedColumnName = "id")
     private UserInfo user;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional=true)
+    @ManyToOne(fetch = FetchType.EAGER, optional=true)
     @JoinColumn(name="parent_id")
     private Comment parent;
 
-    @OneToMany(mappedBy="parent", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy="parent", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
     private Set<Comment> children ;
 
 }

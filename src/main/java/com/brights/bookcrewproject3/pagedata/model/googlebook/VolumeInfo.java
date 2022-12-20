@@ -32,4 +32,5 @@ public class VolumeInfo {
     public double averageRating;
     public int ratingsCount;
     public SeriesInfo seriesInfo;
+    public String comicsContent;
 }

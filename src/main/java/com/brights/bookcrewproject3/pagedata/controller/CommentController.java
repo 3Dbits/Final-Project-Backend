@@ -4,6 +4,7 @@ import com.brights.bookcrewproject3.pagedata.model.Comment;
 import com.brights.bookcrewproject3.pagedata.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,17 +18,17 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @PutMapping("/{idPost}")
-    public ResponseEntity<Comment> createComment(@PathVariable(value = "id") long idPost,
-                                                 @RequestParam(value = "idComment", required = false) long idComment,
+    @PostMapping(value = "/{idPost}")
+    public ResponseEntity<Comment> createComment(@PathVariable(value = "idPost") long idPost,
+                                                 /*@RequestParam(value = "idComment", required = false) Long idComment,*/
                                                  @RequestBody Comment comment,
                                                  Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        if (idComment == 0) {
+//        if (idComment == 0) {
             return new ResponseEntity<>(commentService.createCommentOnPost(idPost, comment, userDetails.getUsername()), HttpStatus.OK);
-        }
+//        }
 
-        return new ResponseEntity<>(commentService.createCommentOnComment(idPost,idComment,comment, userDetails.getUsername()), HttpStatus.OK);
+//        return new ResponseEntity<>(commentService.createCommentOnComment(idPost,idComment,comment, userDetails.getUsername()), HttpStatus.OK);
     }
 }

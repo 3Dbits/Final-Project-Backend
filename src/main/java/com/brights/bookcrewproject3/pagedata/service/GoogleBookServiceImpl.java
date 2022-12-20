@@ -76,50 +76,52 @@ public class GoogleBookServiceImpl implements GoogleBookService {
     public List<Book> getBookFromRoot(Root root) {
         List<Book> books = new ArrayList<>();
 
-        for (int position = 0; position < root.getItems().size(); position++) {
-            Set<Author> author = new HashSet<>();
-            if (root.getItems().get(position).getVolumeInfo().authors != null) {
-                for (var e : root.getItems().get(position).getVolumeInfo().authors) {
-                    if (authorRepository.existsAuthorByName(e)) {
-                        author.add(authorRepository.findAuthorByName(e).orElseThrow());
-                    } else {
-                        author.add(authorService.saveAuthor(new Author(e)));
+        if (root.items != null) {
+            for (int position = 0; position < root.getItems().size(); position++) {
+                Set<Author> author = new HashSet<>();
+                if (root.getItems().get(position).getVolumeInfo().authors != null) {
+                    for (var e : root.getItems().get(position).getVolumeInfo().authors) {
+                        if (authorRepository.existsAuthorByName(e)) {
+                            author.add(authorRepository.findAuthorByName(e).orElseThrow());
+                        } else {
+                            author.add(authorService.saveAuthor(new Author(e)));
+                        }
                     }
+                } else {
+                    author.add(authorService.saveAuthor(new Author("none")));
                 }
-            } else {
-                author.add(authorService.saveAuthor(new Author("none")));
-            }
 
-            Set<Category> categories = new HashSet<>();
-            if (root.getItems().get(position).getVolumeInfo().categories != null) {
-                for (var e : root.getItems().get(position).getVolumeInfo().categories) {
+                Set<Category> categories = new HashSet<>();
+                if (root.getItems().get(position).getVolumeInfo().categories != null) {
+                    for (var e : root.getItems().get(position).getVolumeInfo().categories) {
 
-                    if (categoryRepository.existsCategoryByGenre(e)) {
-                        categories.add(categoryRepository.findCategoryByGenre(e).orElseThrow());
-                    } else {
-                        categories.add(categoryService.saveCategory(new Category(e)));
+                        if (categoryRepository.existsCategoryByGenre(e)) {
+                            categories.add(categoryRepository.findCategoryByGenre(e).orElseThrow());
+                        } else {
+                            categories.add(categoryService.saveCategory(new Category(e)));
+                        }
                     }
+                } else {
+                    categories.add(categoryService.saveCategory(new Category("none")));
                 }
-            } else {
-                categories.add(categoryService.saveCategory(new Category("none")));
+
+                Book book = new Book(
+                        root.getItems().get(position).getVolumeInfo().title,
+                        root.getItems().get(position).getVolumeInfo().publisher,
+                        root.getItems().get(position).getVolumeInfo().language,
+                        root.getItems().get(position).getAccessInfo().getPdf().isAvailable,
+                        root.getItems().get(position).getAccessInfo().getPdf().acsTokenLink,
+                        root.getItems().get(position).getVolumeInfo().getImageLinks() == null ? "none" : root.getItems().get(position).getVolumeInfo().getImageLinks().smallThumbnail,
+                        root.getItems().get(position).getVolumeInfo().getImageLinks() == null ? "none" : root.getItems().get(position).getVolumeInfo().getImageLinks().thumbnail,
+                        root.getItems().get(position).getVolumeInfo().publishedDate,
+                        root.getItems().get(position).getVolumeInfo().pageCount,
+                        root.getItems().get(position).getVolumeInfo().description,
+                        categories,
+                        author,
+                        root.getItems().get(position).getVolumeInfo().getIndustryIdentifiers().get(0).identifier);
+
+                books.add(book);
             }
-
-            Book book = new Book(
-                    root.getItems().get(position).getVolumeInfo().title,
-                    root.getItems().get(position).getVolumeInfo().publisher,
-                    root.getItems().get(position).getVolumeInfo().language,
-                    root.getItems().get(position).getAccessInfo().getPdf().isAvailable,
-                    root.getItems().get(position).getAccessInfo().getPdf().acsTokenLink,
-                    root.getItems().get(position).getVolumeInfo().getImageLinks() == null ? "none" : root.getItems().get(position).getVolumeInfo().getImageLinks().smallThumbnail,
-                    root.getItems().get(position).getVolumeInfo().getImageLinks() == null ? "none" : root.getItems().get(position).getVolumeInfo().getImageLinks().thumbnail,
-                    root.getItems().get(position).getVolumeInfo().publishedDate,
-                    root.getItems().get(position).getVolumeInfo().pageCount,
-                    root.getItems().get(position).getVolumeInfo().description,
-                    categories,
-                    author,
-                    root.getItems().get(position).getVolumeInfo().getIndustryIdentifiers().get(0).identifier);
-
-            books.add(book);
         }
         return books;
     }
