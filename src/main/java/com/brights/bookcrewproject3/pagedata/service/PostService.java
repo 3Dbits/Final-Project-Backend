@@ -16,4 +16,5 @@ public interface PostService {
     void deletePostById(long id);
 
     List<Post> getAllPostsByUsername(String username);
+    List<Post> getAllPostsByUsername2(String username);
 }

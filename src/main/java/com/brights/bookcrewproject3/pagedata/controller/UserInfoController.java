@@ -9,11 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600) //MC all urls can access this controller
@@ -45,5 +43,14 @@ public class UserInfoController {
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(userInfos, HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<List<User>> getUsersByUsername(@PathVariable(value = "username") String username) {
+        List<User> users = new ArrayList<>();
+        if (userRepository.findByUsername(username).orElse(null) != null) {
+            users.add(userRepository.findByUsername(username).get());
+        }
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

@@ -61,4 +61,16 @@ public class PostController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/allProfile")
+    public ResponseEntity<List<Post>> getAllPostForProfile(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        List<Post> list = postService.getAllPostsByUsername2(userDetails.getUsername());
+
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }
