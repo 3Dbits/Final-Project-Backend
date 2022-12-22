@@ -73,4 +73,22 @@ public class PostController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @PostMapping("/like/{id}")
+    public ResponseEntity<?> likePost(Authentication authentication,
+                                           @PathVariable(value = "id") long id) {
+
+            postService.likePost(id);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+    @PostMapping("/dislike/{id}")
+    public ResponseEntity<?> dislikePost(Authentication authentication,
+                                         @PathVariable(value = "id") long id) {
+        postService.dislikePost(id);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 }

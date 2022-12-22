@@ -17,4 +17,7 @@ public interface PostService {
 
     List<Post> getAllPostsByUsername(String username);
     List<Post> getAllPostsByUsername2(String username);
+
+    void likePost(long postId);
+    void dislikePost(long postId);
 }

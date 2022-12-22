@@ -25,6 +25,7 @@ public class Post {
 
     private Date updateAt;
 
+    @Lob
     @NotNull
     @Size(min = 2, message = "Content should at least have 2 characters")
     private String content;
@@ -39,5 +40,7 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comments;
+
+    private int likes;
 
 }

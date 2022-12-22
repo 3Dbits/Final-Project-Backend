@@ -75,7 +75,7 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = post.getComments();
         comments.add(_comment);
         post.setComments(comments);
-        post.setContent("TesttttSpremanja");
+//        post.setContent("TesttttSpremanja");
         postRepository.save(post);
 
 //        Post posttest = postService.getPostById(idPost);

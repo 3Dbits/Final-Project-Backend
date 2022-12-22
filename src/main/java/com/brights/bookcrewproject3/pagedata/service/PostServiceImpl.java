@@ -138,4 +138,20 @@ public class PostServiceImpl implements PostService{
 
         return new ArrayList<>(postRepository.findAllByUserInfo(user.getUserInfo()));
     }
+
+    @Override
+    public void likePost(long postId) {
+        Post post = postRepository.findById(postId).get();
+
+        post.setLikes(post.getLikes() + 1);
+        postRepository.save(post);
+    }
+
+    @Override
+    public void dislikePost(long postId) {
+        Post post = postRepository.findById(postId).get();
+
+        post.setLikes(post.getLikes() - 1);
+        postRepository.save(post);
+    }
 }

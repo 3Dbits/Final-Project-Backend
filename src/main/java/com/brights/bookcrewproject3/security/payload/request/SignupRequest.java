@@ -18,15 +18,15 @@ public class SignupRequest {
     private String email;
     private Set<String> role;
     @NotBlank
-    @Size(min = 6, max = 40)
+    @Size(min = 6, max = 60)
     private String password;
 
     @NotBlank
-    @Size(min = 6, max = 40)
+    @Size(min = 2, max = 60)
     private String firstName;
 
     @NotBlank
-    @Size(min = 6, max = 40)
+    @Size(min = 2, max = 40)
     private String lastName;
 
     private LocalDate dateOfBirth;

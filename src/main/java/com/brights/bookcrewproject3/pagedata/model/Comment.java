@@ -21,6 +21,7 @@ public class Comment {
     @Column(name = "id")
     private Long id ;
 
+    @Lob
     @NotEmpty(message = "Comment content can not be empty!")
     private String content;
 
